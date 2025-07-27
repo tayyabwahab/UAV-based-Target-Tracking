@@ -48,6 +48,13 @@ ipdb>=0.13.0
 # Goto decorator for control flow
 goto-statement>=1.2.0
 
+# Drone control and simulation
+airsim>=1.0.0
+
+# Google Sheets API for coordinate logging
+gspread>=3.7.0
+oauth2client>=4.1.3
+
 # Additional utilities
 tqdm>=4.60.0
 matplotlib>=3.3.0
