@@ -38,11 +38,11 @@
     <tr>
       <td align="center">
         <strong>Drone Demo</strong><br/>
-        <a href="demo/drone demo.mp4">📹 Watch Drone Demo</a>
+        <a href="https://youtu.be/aDq53v610MA">📹 Watch Drone Demo</a>
       </td>
       <td align="center">
         <strong>Prototype Video</strong><br/>
-        <a href="demo/prototype video.mp4">📹 Watch Prototype</a>
+        <a href="https://youtu.be/KthxOmyW6zs">📹 Watch Prototype</a>
       </td>
     </tr>
   </table>
