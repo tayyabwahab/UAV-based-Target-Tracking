@@ -1,4 +1,24 @@
+"""
+Siamese Network Demo Application
 
+This module provides a demonstration application for the Siamese network-based
+object tracker. It allows users to select a region of interest (ROI) in a video
+and track the selected object in real-time.
+
+Key Features:
+- Interactive ROI selection
+- Real-time object tracking
+- Video and camera input support
+- Coordinate difference calculation
+- Visual tracking display
+
+Usage:
+    python demo.py <video_path>  # Track object in video file
+    python demo.py cam           # Track object using camera
+
+Author: UAV Security System Team
+License: MIT
+"""
 
 r"""Generate tracking results for videos using Siamese Model"""
 
@@ -20,16 +40,48 @@ from SiameseTracker import SiameseTracker
 
 
 def preprocess(img):
+    """
+    Preprocess image for tracking by converting BGR to RGB.
+    
+    Args:
+        img (numpy.ndarray): Input image in BGR format
+        
+    Returns:
+        numpy.ndarray: Preprocessed image in RGB format
+    """
     res = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     return res
 
 
 def postprocess(img):
+    """
+    Postprocess image for display by converting RGB to BGR.
+    
+    Args:
+        img (numpy.ndarray): Input image in RGB format
+        
+    Returns:
+        numpy.ndarray: Postprocessed image in BGR format
+    """
     res = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
     return res
 
 
 def main():
+    """
+    Main demo function for Siamese network object tracking.
+    
+    This function demonstrates the complete tracking pipeline:
+    1. Opens video or camera input
+    2. Allows user to select ROI for tracking
+    3. Initializes Siamese tracker with selected object
+    4. Performs real-time tracking
+    5. Calculates and displays coordinate differences
+    6. Shows tracking results visually
+    
+    Command line arguments:
+        sys.argv[1]: Video file path or "cam" for camera input
+    """
     # debug = 0 , no log will produce
     # debug = 1 , will produce log file
     tracker = SiameseTracker(debug=0)

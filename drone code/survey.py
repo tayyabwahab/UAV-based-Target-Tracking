@@ -1,3 +1,21 @@
+"""
+UAV Autonomous Survey Mission System
+
+This module implements autonomous survey missions for UAVs using Microsoft AirSim.
+It provides configurable survey patterns and autonomous flight control for area
+surveillance and mapping missions.
+
+Key Features:
+- Configurable survey area size and pattern
+- Autonomous flight control
+- Obstacle avoidance
+- GPS-guided navigation
+- Survey pattern optimization
+
+Author: UAV Security System Team
+License: MIT
+"""
+
 import setup_path 
 import airsim
 
@@ -6,7 +24,32 @@ import time
 import argparse
 
 class SurveyNavigator:
+    """
+    Autonomous survey navigation system for UAVs.
+    
+    This class provides autonomous survey capabilities for UAVs, allowing them to
+    perform systematic area surveillance missions. It supports configurable survey
+    patterns, altitudes, and speeds.
+    
+    Attributes:
+        boxsize (float): Size of the survey area (square box)
+        stripewidth (float): Width of survey stripes for coverage
+        altitude (float): Survey altitude in meters
+        velocity (float): UAV flight speed in meters/second
+        client: AirSim client for UAV control
+    """
+    
     def __init__(self, args):
+        """
+        Initialize the SurveyNavigator with mission parameters.
+        
+        Args:
+            args: ArgumentParser object containing survey parameters:
+                - size: Size of the survey box
+                - stripewidth: Width of survey stripes
+                - altitude: Survey altitude
+                - speed: UAV flight speed
+        """
         self.boxsize = args.size
         self.stripewidth = args.stripewidth
         self.altitude = args.altitude
@@ -16,6 +59,19 @@ class SurveyNavigator:
         self.client.enableApiControl(True)
 
     def start(self):
+        """
+        Execute the autonomous survey mission.
+        
+        This method performs the complete survey mission:
+        1. Arms and takes off the UAV
+        2. Climbs to specified altitude
+        3. Flies to first corner of survey area
+        4. Executes systematic survey pattern
+        5. Completes coverage of entire area
+        
+        The survey pattern follows a back-and-forth pattern to ensure
+        complete coverage of the specified area.
+        """
         print("arming the drone...")
         self.client.armDisarm(True)
 
@@ -87,6 +143,12 @@ class SurveyNavigator:
         self.client.armDisarm(False)'''
 
 if __name__ == "__main__":
+    """
+    Main entry point for survey mission execution.
+    
+    Parses command line arguments and starts the survey mission.
+    Default parameters provide a reasonable starting configuration.
+    """
     args = sys.argv
     args.pop(0)
     arg_parser = argparse.ArgumentParser("Usage: survey boxsize stripewidth altitude")

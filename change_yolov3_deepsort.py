@@ -1,3 +1,22 @@
+"""
+Enhanced YOLOv3 + DeepSORT Video Tracking System with UAV Integration
+
+This module implements an advanced video tracking system that combines YOLOv3 object detection
+with DeepSORT multi-object tracking and integrates with UAV control systems. The system can
+detect, track, and follow objects in real-time while transmitting coordinate data to UAVs.
+
+Key Features:
+- YOLOv3 object detection for person detection
+- DeepSORT multi-object tracking with re-identification
+- Siamese network-based template tracking
+- Real-time coordinate transmission to UAV systems
+- Google Sheets integration for coordinate logging
+- UAV control integration via AirSim
+
+Author: UAV Security System Team
+License: MIT
+"""
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -46,18 +65,64 @@ wks = gc.open("droneCordinates").sheet1
 
 
 def preprocess(img):
+    """
+    Preprocess image for tracking by converting BGR to RGB.
+    
+    Args:
+        img (numpy.ndarray): Input image in BGR format
+        
+    Returns:
+        numpy.ndarray: Preprocessed image in RGB format
+    """
     res = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     return res
 
 
 def postprocess(img):
+    """
+    Postprocess image for display by converting RGB to BGR.
+    
+    Args:
+        img (numpy.ndarray): Input image in RGB format
+        
+    Returns:
+        numpy.ndarray: Postprocessed image in BGR format
+    """
     res = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
     return res
 
 
 
 class VideoTracker(object):
+    """
+    Enhanced video tracking system with UAV integration.
+    
+    This class provides a complete video tracking pipeline that combines YOLOv3 detection,
+    DeepSORT tracking, and Siamese network-based template tracking. It also integrates
+    with UAV control systems for real-time coordinate transmission.
+    
+    Attributes:
+        cfg: Configuration object containing model parameters
+        args: Command line arguments
+        vdo: OpenCV video capture object
+        detector: YOLOv3 detector instance
+        deepsort: DeepSORT tracker instance
+        class_names: List of class names for detection
+        writer: Video writer for saving results (if enabled)
+        im_width: Video frame width
+        im_height: Video frame height
+        tracker: Siamese tracker for template-based tracking
+        wks: Google Sheets worksheet for coordinate logging
+    """
+    
     def __init__(self, cfg, args):
+        """
+        Initialize the VideoTracker with configuration and arguments.
+        
+        Args:
+            cfg: Configuration object containing model parameters
+            args: Command line arguments including video path and display options
+        """
         self.cfg = cfg
         self.args = args
         use_cuda = args.use_cuda and torch.cuda.is_available()
@@ -75,6 +140,17 @@ class VideoTracker(object):
 
 
     def __enter__(self):
+        """
+        Context manager entry point for video processing.
+        
+        Opens the video file and initializes the video writer if save path is specified.
+        
+        Returns:
+            VideoTracker: Self instance for context manager
+            
+        Raises:
+            AssertionError: If video file doesn't exist or can't be opened
+        """
         assert os.path.isfile(self.args.VIDEO_PATH), "Error: path error"
         self.vdo.open(self.args.VIDEO_PATH)
         self.im_width = int(self.vdo.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -89,12 +165,35 @@ class VideoTracker(object):
 
     
     def __exit__(self, exc_type, exc_value, exc_traceback):
+        """
+        Context manager exit point for cleanup.
+        
+        Args:
+            exc_type: Exception type if any
+            exc_value: Exception value if any
+            exc_traceback: Exception traceback if any
+        """
         if exc_type:
             print(exc_type, exc_value, exc_traceback)
         
     from goto import with_goto
     @with_goto
     def run(self):
+        """
+        Main tracking loop with UAV integration.
+        
+        This method implements the enhanced tracking pipeline:
+        1. Reads video frames
+        2. Performs object detection using YOLOv3
+        3. Tracks objects using DeepSORT
+        4. Uses Siamese networks for template tracking
+        5. Calculates coordinate differences for UAV control
+        6. Transmits coordinates to Google Sheets for UAV integration
+        7. Displays or saves results
+        
+        The method uses goto statements for control flow management and
+        processes frames at specified intervals for performance optimization.
+        """
         idx_frame = 0
         start_tracking = False
         roi = None

@@ -16,6 +16,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
+- [Documentation](#documentation)
 - [Testing](#testing)
 - [Contributing](#contributing)
 - [License](#license)
@@ -333,6 +334,44 @@ uav-autonomous-security-system/
 ├── README.md               # This file
 └── LICENSE                 # MIT License
 ```
+
+## 📚 Documentation
+
+### Code Documentation
+
+All scripts in the project include comprehensive docstrings following Google-style documentation:
+
+- **Module Docstrings**: Clear description of each module's purpose and functionality
+- **Function Docstrings**: Detailed parameter descriptions, return values, and usage examples
+- **Class Docstrings**: Complete documentation of classes, methods, and attributes
+- **Inline Comments**: Helpful comments explaining complex logic and algorithms
+
+### Key Documented Components
+
+#### Main Tracking Scripts
+- `yolov3_deepsort.py`: Basic YOLOv3 + DeepSORT tracking system
+- `change_yolov3_deepsort.py`: Enhanced tracking with UAV integration
+- `SiameseTracker.py`: Siamese network-based object tracker
+- `demo.py`: Interactive demo application
+
+#### UAV Control Scripts
+- `drone code/trackDrone.py`: Real-time UAV tracking system
+- `drone code/survey.py`: Autonomous survey mission controller
+- `drone code/spreadsheet.py`: Google Sheets coordinate management
+- `drone code/setup_path.py`: AirSim integration utility
+
+#### Supporting Scripts
+- `encode_faces.py`: Face encoding generation system
+- `configuration.py`: Model and training configuration management
+- `train_siamese_model.py`: Siamese network training script
+
+### Documentation Features
+
+- **Self-Documenting Code**: All functions and classes include comprehensive docstrings
+- **Usage Examples**: Practical examples for complex functions
+- **Parameter Documentation**: Detailed descriptions of all parameters and return values
+- **Important Notes**: Warnings and important considerations for users
+- **Cross-References**: Links between related components and functions
 
 ## 🧪 Testing
 
