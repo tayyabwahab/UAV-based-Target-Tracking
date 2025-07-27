@@ -1,4 +1,4 @@
-# UAV-Based Autonomous Security System
+# UAV based Target Tracking
 
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/downloads/)
 [![OpenCV](https://img.shields.io/badge/OpenCV-4.5+-green.svg)](https://opencv.org/)
