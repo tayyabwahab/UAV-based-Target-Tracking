@@ -33,14 +33,14 @@
 
 ### 🚁 Demo Videos
 
-<div align="center">
+<div align="left">
   <table>
     <tr>
       <td align="center">
         <strong>Drone Demo</strong><br/>
         <a href="https://youtu.be/aDq53v610MA">📹 Watch Drone Demo</a>
       </td>
-      <td align="center">
+      <td align="left">
         <strong>Prototype Video</strong><br/>
         <a href="https://youtu.be/KthxOmyW6zs">📹 Watch Prototype</a>
       </td>
