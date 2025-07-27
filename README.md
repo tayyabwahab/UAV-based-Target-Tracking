@@ -7,6 +7,49 @@
 [![AirSim](https://img.shields.io/badge/AirSim-1.0+-purple.svg)](https://microsoft.github.io/AirSim/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+## 🖼️ Project Overview
+
+<div align="center">
+  <img src="visuals/Architecture diagram.png" alt="UAV Security System Architecture" width="800"/>
+  <p><em>Complete System Architecture - UAV-Based Autonomous Security System</em></p>
+</div>
+
+### 🎯 System Components
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="visuals/Block Diagram.png" alt="System Block Diagram" width="400"/>
+        <br><em>System Block Diagram</em>
+      </td>
+      <td align="center">
+        <img src="visuals/Flow Diagram.png" alt="System Flow Diagram" width="400"/>
+        <br><em>System Flow Diagram</em>
+      </td>
+    </tr>
+  </table>
+</div>
+
+### 🚁 Demo Videos
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <strong>Drone Demo</strong><br/>
+        <a href="demo/drone demo.mp4">📹 Watch Drone Demo</a>
+      </td>
+      <td align="center">
+        <strong>Prototype Video</strong><br/>
+        <a href="demo/prototype video.mp4">📹 Watch Prototype</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
