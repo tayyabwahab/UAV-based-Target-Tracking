@@ -66,14 +66,14 @@
 
 ## 🚁 Overview
 
-The UAV-Based Autonomous Security System is an advanced computer vision and machine learning project that implements autonomous drone surveillance with facial recognition capabilities. This system enables security forces to detect, recognize, and track specific individuals in crowded areas using unmanned aerial vehicles (UAVs) equipped with high-definition cameras.
+The UAV-Based Target Tracking System is an advanced computer vision and machine learning project that implements autonomous drone surveillance with facial recognition capabilities. This system enables security forces to detect, recognize, and track specific individuals in crowded areas using unmanned aerial vehicles (UAVs) equipped with multiple sensors.
 
 ### Key Objectives
 
 - **Autonomous Mission Execution**: Schedule, repeat, and monitor autonomous drone missions
-- **Face Recognition**: Real-time facial identification in crowded environments
+- **Face Recognition**: Real-time target identification using facial recognition
+- **Preserving Appearance**: Extract full body features for tracking and re-identtification
 - **Person Tracking**: Autonomous tracking and following of recognized individuals
-- **Security Surveillance**: 24/7 security monitoring for various applications
 - **Cost-Effective Solution**: More economical than traditional helicopter surveillance
 - **Real-time Drone Control**: Direct UAV control based on tracking coordinates
 
@@ -82,7 +82,6 @@ The UAV-Based Autonomous Security System is an advanced computer vision and mach
 - **Situational Awareness**: Real-time monitoring of security situations
 - **Guard Augmentation**: Supporting human security personnel
 - **Event Security**: Monitoring large gatherings and events
-- **Border Control**: Surveillance of border areas
 - **Criminal Detection**: Tracking and following suspects
 - **Infrastructure Protection**: Securing critical facilities
 - **Autonomous Survey Missions**: Automated area surveillance and mapping
@@ -91,9 +90,8 @@ The UAV-Based Autonomous Security System is an advanced computer vision and mach
 
 ### 🔍 Face Recognition
 - Real-time facial detection and recognition in video streams
-- High-accuracy identification using deep learning models
+- High-accuracy identification using deep learning
 - Support for multiple face detection methods (CNN, HOG)
-- 99.38% accuracy on Labeled Faces in the Wild (LFW) dataset
 
 ### 🎯 Person Tracking
 - Fully-Convolutional Siamese Networks for object tracking
@@ -106,20 +104,17 @@ The UAV-Based Autonomous Security System is an advanced computer vision and mach
 - Autonomous takeoff and landing
 - Obstacle detection and avoidance
 - GPS-guided navigation
-- Emergency return-to-base functionality
 - Real-time coordinate transmission to drone
 
 ### 📊 System Monitoring
 - Real-time video streaming
 - Performance metrics tracking
-- System health monitoring
 - Alert generation for security events
 
 ### 🛸 UAV Integration
 - Microsoft AirSim integration for UAV simulation
 - Real-time coordinate tracking and transmission
 - Google Sheets integration for coordinate logging
-- Autonomous survey missions
 - Direct drone control based on tracking data
 
 ## 🏗️ System Architecture
@@ -130,7 +125,7 @@ The system consists of several key components:
 
 1. **UAV Platform**: Quadcopter with onboard sensors and camera
 2. **Base Station**: Central command center for mission control
-3. **Image Processing Server**: Computer vision and ML algorithms
+3. **AI Server**: Computer vision and ML algorithms
 4. **Web Interface**: User control and monitoring dashboard
 5. **Database**: Mission and recognition data storage
 6. **Drone Control System**: AirSim-based UAV control interface
@@ -140,21 +135,18 @@ The system consists of several key components:
 #### 1. Object Detection (YOLOv3)
 - Real-time person detection in video streams
 - Configurable confidence thresholds
-- Multi-class object detection capabilities
+- Multi-class object detection capabilities (person, car etc.)
 
 #### 2. Face Recognition (dlib + Deep Learning)
 - 128-dimensional facial feature vectors
 - Deep metric learning for face comparison
-- Support for multiple recognition models
 
 #### 3. Object Tracking (DeepSORT)
 - Multi-object tracking with re-identification
 - Kalman filtering for motion prediction
-- Hungarian algorithm for optimal assignment
 
 #### 4. Siamese Networks
-- Template-based object tracking
-- Real-time feature extraction
+- Appearance-based feature extraction for object tracking
 - Robust tracking in challenging conditions
 
 #### 5. UAV Control System
@@ -191,7 +183,7 @@ The system consists of several key components:
 - **CUDA**: GPU acceleration for deep learning
 - **Sacred**: Experiment tracking and management
 - **PyYAML**: Configuration management
-- **Git**: Version control
+- **Github**: Version control
 
 ### Hardware Requirements
 - **GPU**: NVIDIA GPU with CUDA support (recommended)
@@ -222,10 +214,20 @@ The system consists of several key components:
 
 ### Installation Steps
 
+1. **Install VirtualEnvironment**
+   ```bash
+   pip install virtualenv
+   ```
+2. **Create & Activate Virtual Environment**
+   ```bash
+   virtualenv ~/UAVbasedTargetTracking
+   source ~/UAVbasedTargetTracking/bin/activate
+   ```
+
 1. **Clone the Repository**
    ```bash
-   git clone <repository-url>
-   cd uav-autonomous-security-system
+   git clone https://github.com/tayyabwahab/UAV-based-Target-Tracking.git
+   cd UAV-based-Target-Tracking
    ```
 
 2. **Install Dependencies**
@@ -233,25 +235,12 @@ The system consists of several key components:
    pip install -r requirements.txt
    ```
 
-3. **Download Pre-trained Models**
-   ```bash
-   # YOLOv3 weights
-   wget https://pjreddie.com/media/files/yolov3.weights -P detector/YOLOv3/weight/
-   
-   # DeepSORT model
-   wget <deep_sort_model_url> -P deep_sort/deep/checkpoint/
-   ```
+3. **Download Pre-trained weights of [Yolov3](https://drive.google.com/file/d/13tyOvAl359x6zpsq2JOfzwD0eeXeossb/view?usp=sharing)**
 
 4. **Configure Environment**
    ```bash
    cp configs/yolov3.yaml.example configs/yolov3.yaml
    # Edit configuration files as needed
-   ```
-
-5. **Setup Google Sheets API**
-   ```bash
-   # Place your Google API credentials file in the project root
-   # Rename to: fypapi-275115-1487f536b9fc.json
    ```
 
 ### Docker Installation (Alternative)
@@ -271,7 +260,7 @@ docker run -it --gpus all uav-security-system
 1. **Start the Complete System**
    ```bash
    # Start tracking with UAV integration
-   python change_yolov3_deepsort.py --video-path path/to/video.mp4
+   python change_yolov3_deepsort.py --video-path <path to video>
    ```
 
 2. **Face Recognition**
@@ -344,12 +333,6 @@ Edit the configuration files in the `configs/` directory:
 2. Configure simulation environment
 3. Set up drone model and sensors
 4. Configure flight controller parameters
-
-**Google Sheets API**
-1. Create Google Cloud Project
-2. Enable Google Sheets API
-3. Create service account credentials
-4. Share spreadsheet with service account
 
 ## 📁 Project Structure
 
@@ -447,64 +430,30 @@ python "drone code/survey.py" --size 10 --altitude 5
 The system has been tested with the following results:
 
 - **Face Detection**: 95% accuracy in various lighting conditions
-- **Face Recognition**: 99.38% accuracy on LFW dataset
+- **Face Recognition**: Above 90% accuracy on LFW dataset
 - **Person Tracking**: 30 FPS with 90% tracking success rate
 - **System Performance**: Real-time processing at 1080p resolution
 - **UAV Control**: Sub-second response time for coordinate updates
-- **Survey Missions**: 100% mission completion rate in simulation
 
 ## 📊 Performance Metrics
 
 ### Detection Performance
 - **YOLOv3**: 30 FPS on NVIDIA GTX 1080
 - **Face Detection**: 95% accuracy
-- **Person Detection**: 90% accuracy in crowded scenes
+- **Person Detection**: Above 90% accuracy
 
 ### Tracking Performance
-- **DeepSORT**: 100+ FPS tracking
+- **DeepSORT**: 30+ FPS tracking
 - **Siamese Networks**: Real-time template tracking
-- **Multi-object**: Support for 50+ simultaneous tracks
 
 ### UAV Performance
 - **Coordinate Transmission**: <100ms latency
-- **Survey Missions**: 100% completion rate
 - **Flight Control**: Sub-second response time
-- **Mission Duration**: Up to 8 hours continuous operation
 
 ### System Performance
 - **Video Processing**: 1080p at 30 FPS
-- **Memory Usage**: <4GB RAM
-- **GPU Utilization**: 80% on NVIDIA GPU
-- **Network Latency**: <50ms for coordinate transmission
-
-## 🤝 Contributing
-
-We welcome contributions to improve the UAV Autonomous Security System!
-
-### How to Contribute
-
-1. **Fork the repository**
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Commit your changes**
-   ```bash
-   git commit -m 'Add amazing feature'
-   ```
-4. **Push to the branch**
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-5. **Open a Pull Request**
-
-### Development Guidelines
-
-- Follow PEP 8 style guidelines
-- Add unit tests for new features
-- Update documentation for API changes
-- Ensure all tests pass before submitting
-- Test UAV integration thoroughly
+- **Memory Usage**: <8GB RAM
+- **GPU Utilization**: Above 80% on NVIDIA GPU
 
 ## 📄 License
 
